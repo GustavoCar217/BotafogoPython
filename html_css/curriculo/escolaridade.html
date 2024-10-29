@@ -4,15 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculo - Projeto Pessoal</title>
+    <style>
+        body{
+            background-color:  cornsilk;
+        }
+        div{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 50px;
+            text-align: center;
+            text-decoration: underline;
+        }
+        legend{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 25px;
+            text-align: center;
+        }
+        fieldset{
+            border: 2px solid black;
+            margin: 30px;
+        }
+        li{
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: large;
+        }
+        .buton{
+            background-color: white;
+            border:1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin:20px 500px;
+            cursor: pointer;   
+        }
+        a{text-decoration: none; color: black;}
+        hr{border: 2px solid black;}
+    </style>
 </head>
 <body>
-    <font face="verdana"><b><h1>Graduado em:</h1></b></font>
+    <div>Graduado em</div>
+    <hr>
     <fieldset>
-        <legend><h2>Ensino Médio Completo</h2></legend>
+        <legend>Ensino Médio Completo</legend>
         <ul>
-            <li><b>Ciep 135 Afonso Henriques de Lima Barreto - Conclusão 2018</b></li>
+            <li>Ciep 135 Afonso Henriques de Lima Barreto - Conclusão 2018</li>
         </ul>
-    </fieldset><br>
-    <button><a href="index.html">Voltar para página inicial</a></button>
+    </fieldset>
+    <hr>
+    <button class="buton"><a href="index.html">Voltar para página inicial</a></button>
 </body>
 </html>

@@ -4,14 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculo - Projeto Pessoal</title>
+    <style>
+        body{
+            background-color:  cornsilk;
+        }
+        #tit{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 50px;
+            text-align: center;
+            text-decoration: underline;
+        }
+        p{
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: large;
+        }
+        .buton{
+            background-color: white;
+            border:1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin:20px 500px;
+            cursor: pointer;   
+        }
+        a{text-decoration: none; color: black;}
+        hr{border: 2px solid black;}
+    </style>
 </head>
 <body>
-    <font face="verdana"><b><h1>Dados Pessoais:</h1></b></font>
-    <fieldset>
-    <h2>Nome: Gustavo de Carvalho Vieira</h2>
-    <h2>Idade: 23 Anos</h2>
-    <h2>Altura: 1,73</h2>
-    </fieldset><br>
-    <button><a href="index.html">Voltar para página inicial</a></button>
+    <div id="tit">Dados Pessoais</div>
+    <hr>
+    <div>
+    <p>Nome: Gustavo de Carvalho Vieira</p>
+    <p>Data de Nascimento: 30/04/2001</p>
+    <p>Altura: 1,73</p>
+    <p>Email: GustavoVieira217@hotmail.com</p>
+    <p>Celular: (21) 96497-2447</p>
+    </div>
+    <hr>
+    <button class="buton"><a href="index.html">Voltar para página inicial</a></button>
 </body>
 </html>

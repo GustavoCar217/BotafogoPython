@@ -4,21 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculo - Projeto Pessoal</title>
+    <style>
+        body{
+            background-color:  cornsilk;
+        }
+        div{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 50px;
+            text-align: center;
+            text-decoration: underline;
+        }
+        legend{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 25px;
+            text-align: center;
+        }
+        fieldset{
+            border: 2px solid black;
+            margin: 30px;
+        }
+        li{
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: large;
+        }
+        .buton{
+            background-color: white;
+            border:1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin:20px 500px;
+            cursor: pointer;   
+        }
+        a{text-decoration: none; color: black;}
+    </style>
 </head>
 <body>
-    <font face="verdana"><b><h1>Cursos :</h1></b></font>
+   <div>Cursos</div>
     <fieldset>
-        <legend><h2>Inglês - Avançado</h2></legend>
+        <legend>Inglês - Avançado</legend>
     <ul>
         <li>LL IDIOMAS - Conclusão 2019</li>
     </ul>
     </fieldset>
     <fieldset>
-        <legend><h2>Programação em Python (Não concluido)</h2></legend>
+        <legend>Programação em Python (Não concluido)</legend>
         <ul>
             <li>Senac Botafogo - Em Andamento</li>
         </ul>
-    </fieldset><br>
-    <button><a href="index.html">Voltar para página inicial</a></button>
+    </fieldset>
+    <button class="buton"><a href="index.html">Voltar para página inicial</a></button>
 </body>
 </html> 

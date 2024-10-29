@@ -4,25 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculo - Projeto Pessoal</title>
+    <style>
+        body{
+        background-color:  cornsilk;
+        }
+        #titulo{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 50px;
+            text-align: center;
+            text-decoration: underline;
+        }
+        .forma{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 20px;
+            border: 2px solid black;
+            margin: 30px;
+        }
+        legend{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 25px;
+            text-align: center;
+        }
+        .caixa{
+            border: 2px solid black;
+            margin: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 25px;
+            text-align: center;
+        }
+        li{
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: large;
+        }
+        .buton{
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;   
+        }
+        a{text-decoration: none; color: black;}
+        hr{border: 2px solid black;}
+        #final{
+            display: inline-block;
+            margin: 30px 350px;
+        }
+    </style>
 </head>
 <body>
-    <font face="verdana"><b><h1>Fale Comigo</h1></b></font>
+    <div id="titulo">Fale Comigo</div>
+    <hr>
     <form action="confirma.html" method="post">
-        <fieldset>
-            <font face="verdana"><b>Nome:</b></font><br>
-            <input type="text" name="nome"><br>
-            <font face="verdana"><b>Sobrenome:</b></font><br>
-            <input type="text" name="sobrenome"><br>
-            <font face="verdana"><b>Email:</b></font><br>
-            <input type="text" name="email"><br>
-            <font face="verdana"><b>Celular:</b></font><br>
-            <input type="number" name="celular"><br>
+        <fieldset class="forma">
+            <div>Nome:</div>
+            <input type="text" name="nome">
+            <div>Sobrenome:</div>
+            <input type="text" name="sobrenome">
+            <div>Email:</div>
+            <input type="text" name="email">
+            <div>Celular:</div>
+            <input type="text" name="celular">
         </fieldset>
-        <fieldset>
-            <legend><b><h1>Deixe seu comentario</h1></b></legend>
-            <textarea rows="7" cols="30"></textarea>
-        </fieldset><br>
-        <input type="submit" value="Enviar">
+        <fieldset class="caixa">
+            <legend>Deixe seu comentario</legend>
+            <textarea rows="9" cols="33"></textarea>
+        </fieldset>
+        <hr>
+        <div id="final"><input type="submit" value="Enviar Dados" class="buton">
+        <input type="reset" value="Limpar Dados" class="buton">
+        <button class="buton"><a href="index.html">Voltar para página inicial</a></button></div>
     </form>
 
 
