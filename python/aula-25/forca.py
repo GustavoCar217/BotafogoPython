@@ -48,5 +48,5 @@ def jogo_forca():
             tentativas -= 1
     if tentativas ==0:
         print('\nVocê perdeu! À palavra era: ', palavra)
-    
+
 jogo_forca()
