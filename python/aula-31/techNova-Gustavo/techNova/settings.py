@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstraps',
     'core',
 ]
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'techNova.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], #escrever a template para outros verem q está na HTML
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
