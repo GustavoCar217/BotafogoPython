@@ -6,7 +6,7 @@
     <title>Registrar Usuário</title>
 </head>
 <body>
-    <form>
+    <form action="{% url 'registrar-usuario' % }" method="post">
         <label for="username">Username:</label>
         <input type="username" id="username" name="username" required>
         <br>
