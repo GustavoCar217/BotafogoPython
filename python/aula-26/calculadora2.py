@@ -19,9 +19,9 @@ def restodiv(a, b):
 
 def numeros():
     while True:
-            a = float(input('Qual o primeiro número?\n'))
-            b = float(input('Qual o segundo número?\n'))
-            return a, b
+        a = float(input('Qual o primeiro número?\n'))
+        b = float(input('Qual o segundo número?\n'))
+        return a, b
 
 def calculadora():
     try:
