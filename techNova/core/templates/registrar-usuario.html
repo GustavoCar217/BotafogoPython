@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Contato{% endblock %}
+
+{% block content %}
+<main style=" text-align: center;">
+    <form action="{% url 'registrar-usuario' % }" method="post">
+        <label for="username">Username:</label>
+        <input type="username" id="username" name="username" required>
+        <br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <br>
+        <label for="confirmar_senha">Confirmar Senha:</label>
+        <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+        <br>
+        <button type="submit">Registrar</button>
+    </form>
+</main>        
+{% endblock %}
