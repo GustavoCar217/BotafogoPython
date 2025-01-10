@@ -40,9 +40,10 @@ def registrarUsuario(request):
         senha = request.POST.get('senha')
         user = User.objects.create_user(username=nome_usuario, password=senha)
         user.save()
-    return render(request, 'home.html') 
+    return render(request, 'registrar-usuario.html') 
 
 def custom_logout(request):
+    logout(request)
     return render(request,'home.html')
 
 def login(request):
