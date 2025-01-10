@@ -1,6 +1,9 @@
 from django.contrib import admin
-from core.models import Produto, CustomUser, Servico, Curso
+from core.models import Produto, CustomUser, Servico, Curso, LoginUsuario, RegistrarUsuario
 
+admin.site.register(LoginUsuario)
+
+admin.site.register(RegistrarUsuario)
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'preco', 'estoque')

@@ -47,4 +47,5 @@ def custom_logout(request):
     return render(request,'home.html')
 
 def login(request):
+    login(request)
     return render(request, 'login-usuario.html')
