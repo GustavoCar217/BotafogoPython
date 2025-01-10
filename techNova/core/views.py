@@ -1,9 +1,7 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect, render
+from .models import Servico, Curso
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # Lista de serviços
 servicosLista = [
@@ -37,14 +35,15 @@ def servicos(request):
     return render(request, 'servicos.html')
 
 def registrarUsuario(request):
-    if(request.method == "POST"):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'registrar-usuario.html')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registrar-usuario.html', {'form': form}) 
+    if request.method == 'POST':
+        nome_usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        user = User.objects.create_user(username=nome_usuario, password=senha)
+        user.save()
+    return render(request, 'home.html') 
+
+def custom_logout(request):
+    return render(request,'home.html')
 
 def login(request):
     return render(request, 'login-usuario.html')
