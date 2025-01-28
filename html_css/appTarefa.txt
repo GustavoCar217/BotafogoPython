@@ -1,0 +1,33 @@
+package model;
+
+import java.util.Scanner;
+
+import controller.Controller;
+import view.Telas;
+
+public class AppTarefa {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Telas tela = new Telas();
+		Controller controla = new Controller();
+		
+		
+		int opcao = 0;
+		do {
+			tela.exibirMenu();
+			
+			opcao = scanner.nextInt();
+			
+			controla.verificarOpcao(opcao);
+		}while(opcao != 0);
+		scanner.close();
+		
+
+
+		}
+
+}
+
+
+

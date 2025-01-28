@@ -1,0 +1,43 @@
+package controller;
+
+import tarefa.Tarefa;
+import view.Telas;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Controller {
+
+    // Lista para armazenar as tarefas
+    private List<Tarefa> tarefas = new ArrayList<>();
+
+    public void verificarOpcao(int opcao) {
+        Telas tela = new Telas();
+
+        if (opcao == 1) {
+            Tarefa novaTarefa = tela.exibirInclusao();
+            tarefas.add(novaTarefa);
+            System.out.println("Tarefa adicionada com sucesso!");
+        } else if (opcao == 2) {
+            if (tarefas.isEmpty()) {
+                System.out.println("Nenhuma tarefa cadastrada.");
+            } else {
+                System.out.println("Lista de tarefas:");
+                for (Tarefa tarefa : tarefas) {
+                    tela.exibirConsulta(tarefa);
+                }
+            }
+        }
+		else if(opcao == 3) {
+			System.out.println("Opção escolhida 'Alteração de tarefa' ");
+		}
+		else if(opcao == 4) {
+			System.out.println("Opção escolhida 'Exclusão de tarefa' ");
+		}
+		else if(opcao == 0) {
+			System.out.println("Encerrando aplicação");
+		}else {
+			System.out.println("Digite uma opção valida");
+		}
+		
+	}
+}
