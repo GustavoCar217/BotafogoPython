@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Controller {
 
-    // Lista para armazenar as tarefas
-    private List<Tarefa> tarefas = new ArrayList<>();
+
+ List<Tarefa> tarefas = new ArrayList<Tarefa>();
 
     public void verificarOpcao(int opcao) {
         Telas tela = new Telas();
