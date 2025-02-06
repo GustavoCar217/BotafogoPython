@@ -22,7 +22,7 @@ public class Controler {
 
 		}
 		else if(opcao == 3) {
-			tarefa = tela.exibirAlteracao(tarefa);
+			tarefas = tela.exibirAlteracao(tarefas);
 		}
 		else if(opcao == 4) {
 			tarefas = tela.exibirExclusao(tarefas);
