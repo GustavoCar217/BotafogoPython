@@ -53,41 +53,50 @@ public class Telas {
 		}
 	}
 	
-	public Tarefa exibirAlteracao(Tarefa tarefa) {
+	public List<Tarefa> exibirAlteracao(List<Tarefa> tarefas) {
 		Scanner teclado = new Scanner(System.in);
 		Scanner menu = new Scanner(System.in);
-		
 		System.out.println("A L T E R A Ç Ã O");
 		System.out.println("---------------------------");
-		System.out.println("O que gostaria de alterar? ");
-		System.out.println("1 - Descrição");
-		System.out.println("2 - Prazo");
-		System.out.println("3 - Status");
-		int opcao = menu.nextInt();		
+		System.out.println("Qual tarefa gostaria de alterar?");
+		System.out.println("---------------------------");
+		Scanner scanner = new Scanner(System.in);
+		exibirConsulta(tarefas);
+		int busca = scanner.nextInt();
+		Tarefa registro = null;
 		
-		
-		if(opcao == 1) {
-		System.out.println("Descrição : (" + tarefa.getDescricao() + "):" );
-		tarefa.setDescricao(teclado.nextLine());
-		}else if(opcao == 2) {
-		System.out.println("Prazo : (" + tarefa.getPrazo() + "):");
-		tarefa.setPrazo(teclado.nextInt());
-		}else if(opcao == 3){
-		System.out.println("Finalizada (" + tarefa.isFinalizada() + ")(S/N)?");
-		String status = teclado.next();
-		if(status.equals("S") || status.equals("s")) {
-			tarefa.setFinalizada(true);
-		}else if(status.equals("N") || status.equals("n")) {
-			tarefa.setFinalizada(false);
+		for(Tarefa tarefa: tarefas) {
+			if(tarefa.getId() == busca) {
+				registro = tarefa;
+				
+				System.out.println("O que gostaria de alterar? ");
+				System.out.println("1 - Descrição");
+				System.out.println("2 - Prazo");
+				System.out.println("3 - Status");
+				int opcao = menu.nextInt();		
+				
+				if(opcao == 1) {
+				System.out.println("Descrição : (" + tarefa.getDescricao() + "):" );
+				tarefa.setDescricao(teclado.nextLine());
+				}else if(opcao == 2) {
+				System.out.println("Prazo : (" + tarefa.getPrazo() + "):");
+				tarefa.setPrazo(teclado.nextInt());
+				}else if(opcao == 3){
+				System.out.println("Finalizada (" + tarefa.isFinalizada() + ")(S/N)?");
+				String status = teclado.next();
+				if(status.equals("S") || status.equals("s")) {
+					tarefa.setFinalizada(true);
+				}else if(status.equals("N") || status.equals("n")) {
+					tarefa.setFinalizada(false);
+				}
+			}
+			
 		}
 		
-		
 	}
-		return tarefa;
-
+		return tarefas;
 	}
 	
-
 	
 	public List<Tarefa> exibirExclusao(List<Tarefa> tarefas) {
 		Scanner scanner = new Scanner(System.in);
@@ -106,15 +115,6 @@ public class Telas {
 		
 		System.out.println("Tarefa excluída");
 		
-		
-
 			return tarefas;
-			
-			
-			
-			
-			
-			
-
 	}
 }
