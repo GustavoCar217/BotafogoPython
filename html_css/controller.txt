@@ -1,67 +1,122 @@
-package controler;
+package service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import dao.TarefaDAO;
 import model.Tarefa;
-import view.Telas;
 
-public class Controler {
-	List<Tarefa> tarefas = new ArrayList<Tarefa>();
-	Tarefa tarefa;
-	
-	public void verificarOpcao(int opcao) {
-		Telas tela = new Telas();
+public class TarefaService {
 
-		if(opcao == 1) {
-			tarefas.add(tela.exibirInclusao(gerarIndice(tarefas)));
-		
-		}
-		else if(opcao == 2) {
-			tela.exibirConsulta(tarefas);
-
-		}
-		else if(opcao == 3) {
-			tarefas = tela.exibirAlteracao(tarefas);
-		}
-		else if(opcao == 4) {
-			tarefas = tela.exibirExclusao(tarefas);
-		}
-		else if (opcao == 9) {
-			tarefas = gerarDadosDeTeste();
-		}
-		else if(opcao == 0){System.out.println("Alicação encerrada");
-		}else {
-			System.out.println("Digite uma opção valida");
-		}
-		
+	public List<Tarefa> listar(){
+		TarefaDAO dao = new TarefaDAO();
+		return dao.listar();
 	}
 	
-	public int gerarIndice(List<Tarefa> lista) {
-		int retorno;
-		
-		if(lista.isEmpty()) {
-			retorno = 1;
-		}else {
-			retorno = lista.size() + 1;
-		}
-		return retorno;
+	public List<Tarefa> consultarPorLetra(String descricao){
+		TarefaDAO dao = new TarefaDAO();
+		return dao.consultarPorLetra(descricao);
 	}
 	
-	public List<Tarefa> gerarDadosDeTeste(){
-		List<Tarefa> lista = new ArrayList<Tarefa>();
-		for(int i = 0; i < 5; i++) {
-			Tarefa tarefa = new Tarefa();
-			tarefa.setId(i);
-			tarefa.setDescricao("Comprar algo " + i);
-			tarefa.setPrazo(1);
-			tarefa.setFinalizada(false);
-			
-			lista.add(tarefa);
-			
-		}
-		return lista;
+	public Tarefa consultarPorId(Integer id) {
+		TarefaDAO dao = new TarefaDAO();
+		return dao.consultarPorId(id);
 	}
 	
+	public Tarefa atualizacaoDeTarefa(Integer id, String descricao) {
+		TarefaDAO dao = new TarefaDAO();
+		return dao.atualizarTarefa(id, descricao);
+	}
+	
+	public boolean excluirTarefa(Integer id) {
+		TarefaDAO dao = new TarefaDAO();
+		return dao.excluirTarefa(id);
+	}
+	
+	public Tarefa inserirTarefa(String descricao, Integer prazo, boolean finalizada) {
+		TarefaDAO dao = new TarefaDAO();
+		return dao.inserirTarefa(descricao, prazo, finalizada);
+	}
+}
+
+
+
+package dao;
+
+import java.util.List;
+import java.util.Scanner;
+
+import model.Tarefa;
+import service.TarefaService;
+
+public class TesteBanco {
+
+	public static void main(String[] args) {
+		TarefaService service = new TarefaService();
 		
+		List<Tarefa> lista = service.listar();
+		
+		for(Tarefa t: lista) {
+			System.out.println(t);
+		}
+
+		System.out.println("------------------------------------------");
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Qual tarefa você quer consultar?");
+		int opcao = scanner.nextInt();
+		
+		System.out.println(service.consultarPorId(opcao));
+		
+		System.out.println("------------------------------------------");
+		
+		Scanner teclado = new Scanner(System.in);
+		
+		System.out.println("Qual tarefa você quer consultar(descrição)?");
+		String opcao2 = teclado.nextLine();
+		
+		List<Tarefa> lista2 = service.consultarPorLetra(opcao2);
+			for(Tarefa t2: lista2) {
+				System.out.println(t2);
+			}
+		System.out.println("---------------------------------------------------");
+		
+		System.out.println("Qual tarefa você gostaria de atualizar? (Escolha pelo Id)");	
+		int opcao3 = scanner.nextInt();
+		scanner.nextLine();
+
+		System.out.println("Nova descrição:");
+		String nova = scanner.nextLine(); 
+
+		System.out.println(service.consultarPorId(opcao3));
+ 		System.out.println(service.atualizacaoDeTarefa(opcao3, nova));
+ 		System.out.println("---------------------------------------------------");
+ 		
+ 		System.out.println("Qual tarefa você deseja excluir?(escolha pelo id)");
+ 		Scanner scanner2 = new Scanner(System.in);
+ 		int opcao4 = scanner2.nextInt();
+ 		System.out.println("Tarefa selecionada: "+service.consultarPorId(opcao4));
+ 		service.excluirTarefa(opcao4);
+ 		System.out.println("Tarefa excluida!");
+ 		
+ 		System.out.println("---------------------------------------------------");
+ 		System.out.println("Digite a tarefa nova: ");
+ 		Scanner scanner3 = new Scanner(System.in);
+ 		System.out.println("Descrição: " );
+ 		String des = scanner3.nextLine();
+ 		
+ 		
+ 		Scanner scanner4 = new Scanner(System.in);
+ 		System.out.println("Prazo: ");
+ 		int pra = scanner4.nextInt();
+ 		
+ 		
+ 		Scanner scanner5 = new Scanner(System.in);
+		System.out.println("Finalizada: ");
+ 		boolean fin = scanner5.nextBoolean();
+
+ 		
+ 		System.out.println("Tarefa adicionada: " + service.inserirTarefa(des, pra, fin));
+ 		
+ 		
+}
 }
