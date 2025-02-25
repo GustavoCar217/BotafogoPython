@@ -1,120 +1,201 @@
-package view;
+package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.Tarefa;
+import service.TarefaService;
 
-public class Telas {
+public class TarefaDAO {
+
+	public List<Tarefa> listar(){
+		List<Tarefa> lista = new ArrayList<Tarefa>();
+		Tarefa tarefa = null;
+		
+		Connection cnx = Dao.getConexao();
+		
+		String SQL = "SELECT * FROM tarefas";
+		
+		PreparedStatement ps;
+		
+		try {
+			ps = cnx.prepareStatement(SQL);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				tarefa = new Tarefa();
+				
+				tarefa.setId(rs.getInt("id"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setPrazo(rs.getInt("prazo"));
+				tarefa.setFinalizada(rs.getBoolean("finalizada"));
+				
+				lista.add(tarefa);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+
+	public Tarefa inserirTarefa(String descricao, Integer prazo, boolean finalizada) {
+	    Connection cnx = Dao.getConexao();
+	    String SQL = "INSERT INTO tarefas (descricao, prazo, finalizada) VALUES (?, ?, ?)";
+	    PreparedStatement ps = null;
+	    Tarefa tarefa = null;
+
+	    try {
+	        ps = cnx.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
+	        ps.setString(1, descricao);
+	        ps.setInt(2, prazo);
+	        ps.setBoolean(3, finalizada);
+
+	        int linhasAfetadas = ps.executeUpdate();
+
+	        if (linhasAfetadas > 0) {
+	            ResultSet rs = ps.getGeneratedKeys();
+	            if (rs.next()) {
+	                tarefa = new Tarefa();
+	                tarefa.setId(rs.getInt(1));
+	                tarefa.setDescricao(descricao);
+	                tarefa.setPrazo(prazo);
+	                tarefa.setFinalizada(finalizada);
+	            }
+	            rs.close();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } 
+	    
+	    return tarefa;
+
+	}
 
 	
-	public void exibirMenu() {
-		System.out.println("----- MENU PRINCIPAL -----");
-		System.out.println("1 - Inclusão de tarefa");
-		System.out.println("2 - Consulta de tarefa");
-		System.out.println("3 - Alteração de tarefa");
-		System.out.println("4 - Exclusão de tarefa");
-		System.out.println("9 - Carga de dados de teste");
-		System.out.println("0 - F I M");
-		System.out.println("Digite a opção desejada:");
-	}
-	
-	public Tarefa exibirInclusao(int indice) {
-		Scanner teclado = new Scanner(System.in);
-		Tarefa tarefa = new Tarefa();
+	public List<Tarefa> consultarPorLetra(String descricao){
+		List<Tarefa> lista = new ArrayList<Tarefa>();
+		Tarefa tarefa = null;
 		
-		tarefa.setId(indice);
-		System.out.println("I N C L U S Ã O");
-		System.out.println("Descrição : " );
-		tarefa.setDescricao(teclado.nextLine());
-		System.out.println("Prazo : ");
-		tarefa.setPrazo(teclado.nextInt());
-		System.out.println("Finalizada (S/N)");
-		String status = teclado.next();
-		if(status.equals("S") || status.equals("s")) {
-			tarefa.setFinalizada(true);
-		}else {
-			tarefa.setFinalizada(false);
-		}
-        System.out.println("Tarefa adicionada com sucesso!");
-   
-		return tarefa;
+		Connection cnx = Dao.getConexao();
 		
-	}
-	
-	public void exibirConsulta(List<Tarefa> tarefas) {
+		String SQL = "SELECT * FROM tarefas WHERE descricao LIKE ?";
 		
-		System.out.println("C O N S U L T A");
-		for(Tarefa item: tarefas) {
+		PreparedStatement ps;
+		
+		try {
+			ps = cnx.prepareStatement(SQL);
+			ps.setString(1, descricao + '%');
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				tarefa = new Tarefa();
 				
-			System.out.println(item);
-			System.out.println("-----------------");
-		}
-	}
-	
-	public List<Tarefa> exibirAlteracao(List<Tarefa> tarefas) {
-		Scanner teclado = new Scanner(System.in);
-		Scanner menu = new Scanner(System.in);
-		System.out.println("A L T E R A Ç Ã O");
-		System.out.println("---------------------------");
-		System.out.println("Qual tarefa gostaria de alterar?");
-		System.out.println("---------------------------");
-		Scanner scanner = new Scanner(System.in);
-		exibirConsulta(tarefas);
-		int busca = scanner.nextInt();
-		Tarefa registro = null;
-		
-		for(Tarefa tarefa: tarefas) {
-			if(tarefa.getId() == busca) {
-				registro = tarefa;
+				tarefa.setId(rs.getInt("id"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setPrazo(rs.getInt("prazo"));
+				tarefa.setFinalizada(rs.getBoolean("finalizada"));
 				
-				System.out.println("O que gostaria de alterar? ");
-				System.out.println("1 - Descrição");
-				System.out.println("2 - Prazo");
-				System.out.println("3 - Status");
-				int opcao = menu.nextInt();		
-				
-				if(opcao == 1) {
-				System.out.println("Descrição : (" + tarefa.getDescricao() + "):" );
-				tarefa.setDescricao(teclado.nextLine());
-				}else if(opcao == 2) {
-				System.out.println("Prazo : (" + tarefa.getPrazo() + "):");
-				tarefa.setPrazo(teclado.nextInt());
-				}else if(opcao == 3){
-				System.out.println("Finalizada (" + tarefa.isFinalizada() + ")(S/N)?");
-				String status = teclado.next();
-				if(status.equals("S") || status.equals("s")) {
-					tarefa.setFinalizada(true);
-				}else if(status.equals("N") || status.equals("n")) {
-					tarefa.setFinalizada(false);
-				}
+				lista.add(tarefa);
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return lista;		
 		
-	}
-		return tarefas;
-	}
-	
-	
-	public List<Tarefa> exibirExclusao(List<Tarefa> tarefas) {
-		Scanner scanner = new Scanner(System.in);
-		exibirConsulta(tarefas);
-		System.out.println("Qual tarefa deseja excluir?");
-		int busca = scanner.nextInt();
-		Tarefa registro = null;
+	}	
+	public Tarefa consultarPorId(Integer id){
+		List<Tarefa> lista = new ArrayList<Tarefa>();
+		Tarefa tarefa = null;
 		
-		for(Tarefa tarefa: tarefas) {
-			if(tarefa.getId() == busca) {
-				registro = tarefa;
+		Connection cnx = Dao.getConexao();
+		
+		String SQL = "SELECT * FROM tarefas WHERE id = ?";
+		
+		PreparedStatement ps;
+		
+		try {
+			ps = cnx.prepareStatement(SQL);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				tarefa = new Tarefa();
+				
+				tarefa.setId(rs.getInt("id"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setPrazo(rs.getInt("prazo"));
+				tarefa.setFinalizada(rs.getBoolean("finalizada"));
+				
+				lista.add(tarefa);
 			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return tarefa;		
 		
-		tarefas.remove(registro);
-		
-		System.out.println("Tarefa excluída");
-		
-			return tarefas;
+	}	
+	
+	public Tarefa atualizarTarefa(Integer id, String descricao) {
+	    Tarefa tarefa = null;
+	    Connection cnx = Dao.getConexao();
+
+	    String SQL = "UPDATE tarefas SET descricao = ? WHERE id = ?;";
+
+	    try {
+	        PreparedStatement ps = cnx.prepareStatement(SQL);
+	        ps.setString(1, descricao);
+	        ps.setInt(2, id);
+	        
+	        int linhasAfetadas = ps.executeUpdate();
+
+	        if (linhasAfetadas > 0) {
+	            String confirma = "SELECT * FROM tarefas WHERE id = ?;";
+	            PreparedStatement psSelect = cnx.prepareStatement(confirma);
+	            psSelect.setInt(1, id);
+	            ResultSet rs = psSelect.executeQuery();
+	            
+	            if (rs.next()) {
+	                tarefa = new Tarefa();
+	                tarefa.setId(rs.getInt("id"));
+	                tarefa.setDescricao(rs.getString("descricao"));
+	                tarefa.setPrazo(rs.getInt("prazo"));
+	                tarefa.setFinalizada(rs.getBoolean("finalizada"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return tarefa;
 	}
+	
+	public boolean excluirTarefa(Integer id) {
+	    Connection cnx = Dao.getConexao();
+	    String SQL = "DELETE FROM tarefas WHERE id = ?";
+	    PreparedStatement ps = null;
+	    boolean sucesso = false;
+
+	    try {
+	        ps = cnx.prepareStatement(SQL);
+	        ps.setInt(1, id);
+
+	        int linhasAfetadas = ps.executeUpdate(); // Para DELETE, usamos executeUpdate()
+	        sucesso = (linhasAfetadas > 0); // Se alguma linha foi deletada, retorna true
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } 
+	    return sucesso;
+	}
+
+		
 }
